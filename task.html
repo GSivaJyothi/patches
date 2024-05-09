@@ -1,0 +1,47 @@
+Employee = [
+    {"employee_id": 1, "name": "aadhya", "salary": "15000", "age": 35},
+    {"employee_id": 2, "name": "bhaskar", "salary": "16000", "age": 29},
+    {"employee_id": 3, "name": "charan", "salary": "17000", "age": 44}
+]
+
+def apply_update_patches(patches, data):
+    for patch in patches:
+        for employee in data:
+            if employee["employee_id"] == patch["employee_id"]:
+                employee.update(patch["newValues"])
+
+def apply_create_patches(patches, data):
+    for patch in patches:
+        new_employee = {
+            "employee_id": patch["employee_id"],
+            "name": patch["name"],
+            "salary": patch["salary"],
+            "age": patch["age"]
+        }
+        data.append(new_employee)
+
+def apply_delete_patches(patches, data):
+    for patch in patches:
+        for employee in data:
+            if employee["employee_id"] == patch["employee_id"]:
+                data.remove(employee)
+
+update_patches = [
+    {"employee_id": 1, "newValues": {"salary": "20000", "age": 39}}
+]
+
+create_patches = [
+    {"employee_id": 4, "name": "David", "salary": "25000", "age": 25}
+]
+
+delete_patches = [
+    {"employee_id": 3}
+]
+
+apply_update_patches(update_patches, Employee)
+apply_create_patches(create_patches, Employee)
+apply_delete_patches(delete_patches, Employee)
+
+print("Updated employee Records:")
+for employee in Employee:
+    print(employee)
